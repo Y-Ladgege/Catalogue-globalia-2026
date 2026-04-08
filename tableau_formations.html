@@ -78,6 +78,15 @@
         .tool-tag { background:#F3EFFA; color:#5B3D8A; font-size:.75rem; font-weight:700; padding:.2rem .6rem; border-radius:20px; border:1px solid #B99FDE; }
         .tool-tag.choice { background:#F0F4FF; color:#4338CA; border-color:#A5B4FC; }
         .tool-tag.green { background:#F0FDF4; color:#166534; border-color:#86EFAC; }
+        .tool-tag.selectable { cursor:pointer; transition:all .18s; user-select:none; }
+        .tool-tag.selectable:hover { background:#E8E0F7; border-color:#7C53B0; }
+        .tool-tag.selectable.selected { background:#7C53B0; color:#fff; border-color:#5B3D8A; box-shadow:0 2px 8px rgba(124,83,176,.3); }
+        .pack-cta { margin-top:.75rem; }
+        .pack-cta a { display:inline-block; padding:.45rem 1rem; border-radius:8px; font-size:.8rem; font-weight:700; text-decoration:none; transition:all .2s; }
+        .cta-devis { background:#7C53B0; color:#fff; margin-right:.5rem; }
+        .cta-devis:hover { background:#5B3D8A; }
+        .cta-inscrire { background:#fff; color:#7C53B0; border:1.5px solid #7C53B0; }
+        .cta-inscrire:hover { background:#F3EFFA; }
 
         .sectors-row { display:flex; flex-wrap:wrap; gap:.35rem; }
         .sector { background:#F3EFFA; color:#5B3D8A; font-size:.72rem; font-weight:600; padding:.15rem .55rem; border-radius:20px; border:1px solid #C4ADE8; }
@@ -207,17 +216,23 @@
             </div>
             <div class="pack-content">
                 <p class="pack-desc">Comprendre et utiliser l'IA au quotidien. Socle IA, productivité, rédaction professionnelle et premières automatisations simples. Formation adaptée à l'outil utilisé par votre entreprise.</p>
-                <div class="tools-row">
+                <div class="tools-row" data-pack="ESSENTIEL" data-type="entreprise">
                     <span class="tool-tag choice">Au choix :</span>
-                    <span class="tool-tag">ChatGPT</span>
-                    <span class="tool-tag">Gemini</span>
-                    <span class="tool-tag">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="ChatGPT">ChatGPT</span>
+                    <span class="tool-tag selectable" data-outil="Gemini">Gemini</span>
+                    <span class="tool-tag selectable" data-outil="Copilot">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="Claude">Claude</span>
+                    <span class="tool-tag selectable" data-outil="Mistral">Mistral</span>
+                    <span class="tool-tag selectable" data-outil="Hostinger">Hostinger</span>
                 </div>
                 <div class="sectors-row">
                     <span class="sector">Commerce</span>
                     <span class="sector">Tourisme</span>
                     <span class="sector">Services</span>
                     <span class="sector">BTP</span>
+                </div>
+                <div class="pack-cta">
+                    <a href="demande_devis.html?pack=ESSENTIEL" class="cta-devis" data-cta-devis="ESSENTIEL">📋 Demander un devis</a>
                 </div>
             </div>
             <div class="pack-price-col">
@@ -237,11 +252,14 @@
             </div>
             <div class="pack-content">
                 <p class="pack-desc">IA + Organisation. Productivité avancée, structuration de l'entreprise, base clients, suivi d'activité et gestion de projets. L'outil IA est adapté à votre environnement existant.</p>
-                <div class="tools-row">
+                <div class="tools-row" data-pack="PERFORMANCE" data-type="entreprise">
                     <span class="tool-tag choice">Au choix :</span>
-                    <span class="tool-tag">ChatGPT</span>
-                    <span class="tool-tag">Gemini</span>
-                    <span class="tool-tag">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="ChatGPT">ChatGPT</span>
+                    <span class="tool-tag selectable" data-outil="Gemini">Gemini</span>
+                    <span class="tool-tag selectable" data-outil="Copilot">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="Claude">Claude</span>
+                    <span class="tool-tag selectable" data-outil="Mistral">Mistral</span>
+                    <span class="tool-tag selectable" data-outil="Hostinger">Hostinger</span>
                     <span class="tool-tag">Notion</span>
                 </div>
                 <div class="sectors-row">
@@ -249,6 +267,9 @@
                     <span class="sector">Tourisme</span>
                     <span class="sector">Immobilier</span>
                     <span class="sector">Services</span>
+                </div>
+                <div class="pack-cta">
+                    <a href="demande_devis.html?pack=PERFORMANCE" class="cta-devis" data-cta-devis="PERFORMANCE">📋 Demander un devis</a>
                 </div>
             </div>
             <div class="pack-price-col">
@@ -279,6 +300,9 @@
                     <span class="sector">Logistique</span>
                     <span class="sector">Finance</span>
                 </div>
+                <div class="pack-cta">
+                    <a href="demande_devis.html?pack=AUTOMATISATION" class="cta-devis">📋 Demander un devis</a>
+                </div>
             </div>
             <div class="pack-price-col">
                 <div class="price-main">290 000 XPF</div>
@@ -305,6 +329,9 @@
                 </div>
                 <div class="sectors-row">
                     <span class="sector">Tous secteurs</span>
+                </div>
+                <div class="pack-cta">
+                    <a href="demande_devis.html?pack=EXPERT" class="cta-devis">📋 Demander un devis</a>
                 </div>
             </div>
             <div class="pack-price-col">
@@ -337,11 +364,17 @@
             </div>
             <div class="pack-content">
                 <p class="pack-desc">Première découverte de l'IA. Prompts simples, usages du quotidien personnel et professionnel. Choisissez l'outil qui vous correspond.</p>
-                <div class="tools-row">
+                <div class="tools-row" data-pack="INITIATION" data-type="particulier">
                     <span class="tool-tag choice">Au choix :</span>
-                    <span class="tool-tag">ChatGPT</span>
-                    <span class="tool-tag">Gemini</span>
-                    <span class="tool-tag">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="ChatGPT">ChatGPT</span>
+                    <span class="tool-tag selectable" data-outil="Gemini">Gemini</span>
+                    <span class="tool-tag selectable" data-outil="Copilot">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="Claude">Claude</span>
+                    <span class="tool-tag selectable" data-outil="Mistral">Mistral</span>
+                    <span class="tool-tag selectable" data-outil="Hostinger">Hostinger</span>
+                </div>
+                <div class="pack-cta">
+                    <a href="inscription_particulier.html?pack=INITIATION" class="cta-inscrire" data-cta-inscrire="INITIATION">📝 S'inscrire</a>
                 </div>
             </div>
             <div class="pack-price-col">
@@ -362,11 +395,17 @@
             </div>
             <div class="pack-content">
                 <p class="pack-desc">Utiliser l'IA efficacement. Productivité personnelle, rédaction, organisation, gain de temps au quotidien. Outil au choix selon votre usage.</p>
-                <div class="tools-row">
+                <div class="tools-row" data-pack="STANDARD" data-type="particulier">
                     <span class="tool-tag choice">Au choix :</span>
-                    <span class="tool-tag">ChatGPT</span>
-                    <span class="tool-tag">Gemini</span>
-                    <span class="tool-tag">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="ChatGPT">ChatGPT</span>
+                    <span class="tool-tag selectable" data-outil="Gemini">Gemini</span>
+                    <span class="tool-tag selectable" data-outil="Copilot">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="Claude">Claude</span>
+                    <span class="tool-tag selectable" data-outil="Mistral">Mistral</span>
+                    <span class="tool-tag selectable" data-outil="Hostinger">Hostinger</span>
+                </div>
+                <div class="pack-cta">
+                    <a href="inscription_particulier.html?pack=STANDARD" class="cta-inscrire" data-cta-inscrire="STANDARD">📝 S'inscrire</a>
                 </div>
             </div>
             <div class="pack-price-col">
@@ -387,13 +426,19 @@
             </div>
             <div class="pack-content">
                 <p class="pack-desc">Parcours complet IA. IA générative maîtrisée + Notion pour s'organiser + automatisation simple. 3 journées progressives. L'outil IA est choisi selon votre contexte.</p>
-                <div class="tools-row">
+                <div class="tools-row" data-pack="PARCOURS" data-type="particulier">
                     <span class="tool-tag choice">Au choix :</span>
-                    <span class="tool-tag">ChatGPT</span>
-                    <span class="tool-tag">Gemini</span>
-                    <span class="tool-tag">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="ChatGPT">ChatGPT</span>
+                    <span class="tool-tag selectable" data-outil="Gemini">Gemini</span>
+                    <span class="tool-tag selectable" data-outil="Copilot">Copilot</span>
+                    <span class="tool-tag selectable" data-outil="Claude">Claude</span>
+                    <span class="tool-tag selectable" data-outil="Mistral">Mistral</span>
+                    <span class="tool-tag selectable" data-outil="Hostinger">Hostinger</span>
                     <span class="tool-tag">Notion</span>
                     <span class="tool-tag">Automatisation</span>
+                </div>
+                <div class="pack-cta">
+                    <a href="inscription_particulier.html?pack=PARCOURS" class="cta-inscrire" data-cta-inscrire="PARCOURS">📝 S'inscrire</a>
                 </div>
             </div>
             <div class="pack-price-col">
@@ -424,7 +469,7 @@
                 <tr class="tr-sep"><td colspan="6">Entreprise</td></tr>
                 <tr>
                     <td>ESSENTIEL</td>
-                    <td>ChatGPT / Gemini / Copilot</td>
+                    <td>ChatGPT / Gemini / Copilot / Claude / Mistral / Hostinger</td>
                     <td>1 jour — 7h</td>
                     <td>95 000 XPF</td>
                     <td><span class="tg tg-g">✅ 100% TPE</span></td>
@@ -432,7 +477,7 @@
                 </tr>
                 <tr>
                     <td>PERFORMANCE</td>
-                    <td>ChatGPT / Gemini / Copilot + Notion</td>
+                    <td>ChatGPT / Gemini / Copilot / Claude / Mistral / Hostinger + Notion</td>
                     <td>2 jours — 14h</td>
                     <td>175 000 XPF</td>
                     <td><span class="tg tg-w">⚠️ Partiel</span></td>
@@ -457,7 +502,7 @@
                 <tr class="tr-sep"><td colspan="6">Particulier — 5 stagiaires min. — prix par personne</td></tr>
                 <tr>
                     <td>INITIATION</td>
-                    <td>ChatGPT / Gemini / Copilot</td>
+                    <td>ChatGPT / Gemini / Copilot / Claude / Mistral / Hostinger</td>
                     <td>1 jour — 7h</td>
                     <td>18 000 XPF/pers.</td>
                     <td><span class="tg tg-n">Non</span></td>
@@ -465,7 +510,7 @@
                 </tr>
                 <tr>
                     <td>STANDARD</td>
-                    <td>ChatGPT / Gemini / Copilot</td>
+                    <td>ChatGPT / Gemini / Copilot / Claude / Mistral / Hostinger</td>
                     <td>2 jours — 14h</td>
                     <td>36 000 XPF/pers.</td>
                     <td><span class="tg tg-n">Non</span></td>
@@ -473,7 +518,7 @@
                 </tr>
                 <tr>
                     <td>PARCOURS</td>
-                    <td>ChatGPT / Gemini / Copilot + Notion</td>
+                    <td>ChatGPT / Gemini / Copilot / Claude / Mistral / Hostinger + Notion</td>
                     <td>3 jours — 21h</td>
                     <td>54 000 XPF/pers.</td>
                     <td><span class="tg tg-n">Non</span></td>
@@ -497,5 +542,30 @@
     <a href="index.html" class="fab-btn" title="Accueil">⌂</a>
 </div>
 
+<script>
+// Sélection interactive des outils "Au choix"
+document.querySelectorAll('.tool-tag.selectable').forEach(tag => {
+    tag.addEventListener('click', function() {
+        const row = this.closest('.tools-row');
+        const pack = row.dataset.pack;
+        const type = row.dataset.type;
+        const outil = this.dataset.outil;
+
+        // Toggle sélection dans ce pack (un seul outil à la fois)
+        row.querySelectorAll('.tool-tag.selectable').forEach(t => t.classList.remove('selected'));
+        this.classList.add('selected');
+
+        // Mettre à jour le(s) lien(s) CTA du même pack-content
+        const packContent = row.closest('.pack-content');
+        if (type === 'entreprise') {
+            const link = packContent.querySelector('[data-cta-devis]');
+            if (link) link.href = `demande_devis.html?pack=${pack}&outil=${encodeURIComponent(outil)}`;
+        } else {
+            const link = packContent.querySelector('[data-cta-inscrire]');
+            if (link) link.href = `inscription_particulier.html?pack=${pack}&outil=${encodeURIComponent(outil)}`;
+        }
+    });
+});
+</script>
 </body>
 </html>

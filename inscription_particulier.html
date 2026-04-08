@@ -144,7 +144,33 @@
         </div>
 
         <div class="card">
-            <div class="card-title">📅 3. Disponibilités</div>
+            <div class="card-title">🛠 3. Outil IA souhaité</div>
+            <div class="fg">
+                <label for="outil">Quel outil IA souhaitez-vous utiliser pendant la formation ? <span class="req">*</span></label>
+                <select id="outil" name="outil" required>
+                    <option value="">— Sélectionnez —</option>
+                    <optgroup label="IA générative">
+                        <option>ChatGPT (OpenAI)</option>
+                        <option>Gemini (Google)</option>
+                        <option>Copilot (Microsoft)</option>
+                        <option>Claude (Anthropic)</option>
+                        <option>Mistral (Mistral AI)</option>
+                    </optgroup>
+                    <optgroup label="Automatisation &amp; organisation">
+                        <option>N8N (automatisation)</option>
+                        <option>Notion (organisation)</option>
+                    </optgroup>
+                    <optgroup label="Web &amp; hébergement">
+                        <option>Hostinger (création de site)</option>
+                    </optgroup>
+                    <option>Pas encore d'outil — recommandez-moi</option>
+                </select>
+                <small>Pour les packs INITIATION et STANDARD, la formation est adaptée à l'outil choisi.</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📅 4. Disponibilités</div>
             <div class="grid">
                 <div class="fg full">
                     <label for="disponibilites">Vos disponibilités <span class="req">*</span></label>
@@ -202,6 +228,32 @@ function handleSubmit(e) {
         btn.disabled = false;
     });
 }
+
+// Pré-sélection via paramètres URL (?pack=INITIATION&outil=ChatGPT)
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    const pack = params.get('pack');
+    const outil = params.get('outil');
+
+    if (pack) {
+        const map = {
+            'INITIATION': 'pi',
+            'STANDARD':   'ps',
+            'PARCOURS':   'pp2'
+        };
+        const radio = document.getElementById(map[pack]);
+        if (radio) radio.checked = true;
+    }
+
+    if (outil) {
+        const select = document.getElementById('outil');
+        if (select) {
+            for (let opt of select.options) {
+                if (opt.text.startsWith(outil)) { opt.selected = true; break; }
+            }
+        }
+    }
+})();
 </script>
 </body>
 </html>

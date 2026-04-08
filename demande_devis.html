@@ -167,9 +167,20 @@
                 <label for="outil">Quel outil IA utilisez-vous ou souhaitez-vous apprendre ?</label>
                 <select id="outil" name="outil">
                     <option value="">— Sélectionnez —</option>
-                    <option>ChatGPT (OpenAI)</option>
-                    <option>Gemini (Google)</option>
-                    <option>Copilot (Microsoft)</option>
+                    <optgroup label="IA générative">
+                        <option>ChatGPT (OpenAI)</option>
+                        <option>Gemini (Google)</option>
+                        <option>Copilot (Microsoft)</option>
+                        <option>Claude (Anthropic)</option>
+                        <option>Mistral (Mistral AI)</option>
+                    </optgroup>
+                    <optgroup label="Automatisation &amp; organisation">
+                        <option>N8N (automatisation)</option>
+                        <option>Notion (organisation)</option>
+                    </optgroup>
+                    <optgroup label="Web &amp; hébergement">
+                        <option>Hostinger (création de site)</option>
+                    </optgroup>
                     <option>Pas encore d'outil — recommandez-moi</option>
                 </select>
                 <small>Pour les packs ESSENTIEL et PERFORMANCE, la formation est adaptée à votre outil.</small>
@@ -270,6 +281,33 @@ function handleSubmit(e) {
     });
 }
 updateParticipants();
+
+// Pré-sélection via paramètres URL (?pack=ESSENTIEL&outil=ChatGPT)
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    const pack = params.get('pack');
+    const outil = params.get('outil');
+
+    if (pack) {
+        const map = {
+            'ESSENTIEL':      'p1',
+            'PERFORMANCE':    'p2',
+            'AUTOMATISATION': 'p3',
+            'EXPERT':         'p4'
+        };
+        const radio = document.getElementById(map[pack]);
+        if (radio) { radio.checked = true; updateParticipants(); }
+    }
+
+    if (outil) {
+        const select = document.getElementById('outil');
+        if (select) {
+            for (let opt of select.options) {
+                if (opt.text.startsWith(outil)) { opt.selected = true; break; }
+            }
+        }
+    }
+})();
 </script>
 </body>
 </html>
