@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations IA 2026 — Global IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:#F8F5FF; color:#1A1025; line-height:1.6; padding-bottom:5rem; }
+
+        /* ── HEADER ── */
+                .header { background:#7C53B0; padding:1.25rem 2rem; }
+        .header-inner { max-width:1000px; margin:0 auto; display:flex; align-items:center; gap:1.25rem; }
+        .header-logo { flex-shrink:0; }
+        .header-text h1 { font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700; color:#fff; margin-bottom:.1rem; }
+        .header-text .sub { font-size:.82rem; color:rgba(255,255,255,.8); margin-bottom:.4rem; }
+        .back { display:inline-flex; align-items:center; gap:.4rem; margin-top:1rem; padding:.5rem 1rem; background:rgba(255,255,255,.2); border:1.5px solid rgba(255,255,255,.5); color:#fff; text-decoration:none; border-radius:8px; font-size:.85rem; font-weight:600; transition:all .2s; }
+        .back:hover { background:rgba(255,255,255,.35); }
+
+        /* ── LAYOUT ── */
+        .page { max-width:860px; margin:0 auto; padding:2.5rem 1.5rem; }
+
+        /* ── NOTE FPG ── */
+        .fpg-note { background:#F3EFFA; border:1.5px solid #C4ADE8; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:2.5rem; font-size:.88rem; color:#3D2B5A; }
+        .fpg-note strong { color:#5B3D8A; }
+        .fpg-note .fpg-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.75rem; margin-top:.85rem; }
+        .fpg-cell { background:#fff; border-radius:8px; padding:.7rem .9rem; border:1px solid #C4ADE8; font-size:.82rem; }
+        .fpg-cell .fc-label { color:#5B3D8A; font-weight:700; font-size:.75rem; text-transform:uppercase; letter-spacing:.5px; margin-bottom:.2rem; }
+        .fpg-cell .fc-val { color:#3D2B5A; font-weight:600; }
+        .fpg-disclaimer { margin-top:.85rem; padding-top:.75rem; border-top:1px solid #C4ADE8; font-size:.8rem; color:#5B3D8A; font-style:italic; }
+
+        /* ── SECTION TITRE ── */
+        .section-head { display:flex; align-items:center; gap:1rem; margin:2.5rem 0 1.5rem; }
+        .section-head h2 { font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:700; color:#1A1025; }
+        .section-head .line { flex:1; height:2px; background:#E4D9F5; border-radius:2px; }
+        .section-head .pill { background:#7C53B0; color:#fff; font-size:.75rem; font-weight:700; padding:.25rem .75rem; border-radius:20px; white-space:nowrap; }
+        .section-head .pill-orange { background:#5B3D8A; }
+
+        /* ── PACK ROW ── */
+        .pack-row {
+            background:#fff;
+            border:1.5px solid #C4ADE8;
+            border-radius:16px;
+            margin-bottom:1.25rem;
+            overflow:hidden;
+            transition:box-shadow .25s;
+        }
+        .pack-row:hover { box-shadow:0 6px 24px rgba(124,83,176,.12); }
+
+        .pack-top {
+            display:grid;
+            grid-template-columns:200px 1fr auto;
+            gap:0;
+            align-items:stretch;
+        }
+
+        /* Colonne gauche — identité du pack */
+        .pack-id {
+            background:#7C53B0;
+            padding:1.5rem 1.25rem;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            gap:.35rem;
+        }
+        .pack-id.dark { background:#4A2E7A; }
+        .pack-id.orange { background:#5B3D8A; }
+        .pack-id .p-label { font-size:.7rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.7); }
+        .pack-id .p-name { font-family:'Space Grotesk',sans-serif; font-size:1.35rem; font-weight:700; color:#fff; }
+        .pack-id .p-dur { font-size:.82rem; color:rgba(255,255,255,.85); margin-top:.1rem; }
+
+        /* Colonne centre — contenu */
+        .pack-content { padding:1.5rem 1.5rem 1.25rem; }
+        .pack-desc { font-size:.9rem; color:#3D2B5A; margin-bottom:1rem; }
+
+        .tools-row { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; }
+        .tool-tag { background:#F3EFFA; color:#5B3D8A; font-size:.75rem; font-weight:700; padding:.2rem .6rem; border-radius:20px; border:1px solid #B99FDE; }
+        .tool-tag.choice { background:#F0F4FF; color:#4338CA; border-color:#A5B4FC; }
+        .tool-tag.green { background:#F0FDF4; color:#166534; border-color:#86EFAC; }
+
+        .sectors-row { display:flex; flex-wrap:wrap; gap:.35rem; }
+        .sector { background:#F3EFFA; color:#5B3D8A; font-size:.72rem; font-weight:600; padding:.15rem .55rem; border-radius:20px; border:1px solid #C4ADE8; }
+
+        /* Colonne droite — prix et FPG */
+        .pack-price-col {
+            padding:1.5rem 1.5rem 1.25rem;
+            display:flex;
+            flex-direction:column;
+            align-items:flex-end;
+            justify-content:center;
+            gap:.6rem;
+            border-left:1.5px solid #E4D9F5;
+            min-width:150px;
+        }
+        .price-main { font-family:'Space Grotesk',sans-serif; font-size:1.4rem; font-weight:700; color:#7C53B0; text-align:right; }
+        .price-sub { font-size:.78rem; color:#6A5585; text-align:right; }
+        .fpg-tag { font-size:.76rem; font-weight:700; padding:.25rem .65rem; border-radius:20px; text-align:center; }
+        .fpg-green { background:#F3EFFA; color:#5B3D8A; border:1px solid #B99FDE; }
+        .fpg-warn { background:#F3EFFA; color:#5B3D8A; border:1px solid #C4ADE8; }
+        .fpg-no { background:#F5F5F5; color:#888; border:1px solid #ddd; }
+
+        /* ── PARTICULIER : note min 5 ── */
+        .min-note { background:#F3EFFA; border:1.5px solid #C4ADE8; border-radius:10px; padding:.85rem 1.1rem; margin-bottom:1.5rem; font-size:.87rem; color:#3D2B5A; }
+        .min-note strong { color:#5B3D8A; }
+
+        /* ── TABLEAU RÉCAP ── */
+        .recap-title { font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700; color:#1A1025; margin:3rem 0 1rem; padding-left:1rem; border-left:4px solid #7C53B0; }
+        .table-wrap { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; background:#fff; border-radius:14px; overflow:hidden; border:1.5px solid #C4ADE8; font-size:.87rem; }
+        thead { background:#5B3D8A; }
+        thead th { padding:.8rem 1rem; text-align:left; font-size:.76rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#fff; white-space:nowrap; }
+        tbody td { padding:.8rem 1rem; border-bottom:1px solid #E4D9F5; color:#3D2B5A; vertical-align:middle; }
+        tbody td:first-child { font-weight:700; color:#1A1025; }
+        tbody tr:last-child td { border-bottom:none; }
+        tbody tr:hover { background:#F8F5FF; }
+        .tr-sep td { background:#F8F5FF; font-size:.76rem; font-weight:700; color:#6A5585; text-transform:uppercase; letter-spacing:.5px; padding:.5rem 1rem; border-bottom:1px solid #E4D9F5; }
+        .tg { display:inline-block; padding:.18rem .55rem; border-radius:20px; font-size:.72rem; font-weight:700; white-space:nowrap; }
+        .tg-ent { background:#F3EFFA; color:#5B3D8A; }
+        .tg-part { background:#F3EFFA; color:#5B3D8A; }
+        .tg-g { background:#F3EFFA; color:#5B3D8A; }
+        .tg-w { background:#F3EFFA; color:#5B3D8A; }
+        .tg-n { background:#F5F5F5; color:#888; }
+        .tg-diff { background:#F0FDF4; color:#166534; }
+
+        /* ── FAB ── */
+        .fab { position:fixed; bottom:1.5rem; right:1.5rem; z-index:100; display:flex; flex-direction:column; gap:.6rem; }
+        .fab-btn { width:44px; height:44px; border-radius:10px; border:2px solid #7C53B0; background:#fff; color:#7C53B0; font-size:1rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 12px rgba(0,0,0,.12); transition:all .25s; text-decoration:none; }
+        .fab-btn:hover { background:#7C53B0; color:#fff; }
+
+        @media(max-width:680px) {
+            .pack-top { grid-template-columns:1fr; }
+            .pack-id { border-radius:0; }
+            .pack-price-col { border-left:none; border-top:1.5px solid #E4D9F5; align-items:flex-start; flex-direction:row; flex-wrap:wrap; gap:.5rem; padding:1rem 1.25rem; }
+            .fpg-note .fpg-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="header-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="56" height="56" style="border-radius:10px;display:block;box-shadow:0 4px 14px rgba(0,0,0,.2);">
+              <rect width="80" height="80" rx="14" fill="#fff"/>
+              <rect x="8"  y="8"  width="18" height="18" rx="3" fill="#7C53B0"/>
+              <rect x="31" y="8"  width="18" height="18" rx="3" fill="#9B7DD4"/>
+              <rect x="54" y="8"  width="18" height="18" rx="3" fill="#4A4A4A"/>
+              <rect x="8"  y="31" width="18" height="18" rx="3" fill="#9B7DD4"/>
+              <rect x="31" y="31" width="18" height="18" rx="3" fill="#4A4A4A"/>
+              <rect x="54" y="31" width="18" height="18" rx="3" fill="#6A6A6A"/>
+              <text x="8" y="72" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1A1025">Global IA</text>
+            </svg>
+        </div>
+        <div class="header-text" style="flex:1;">
+            <h1>Catalogue des Formations 2026</h1>
+            <p class="sub">Intelligence Artificielle &amp; Automatisation — Polynésie française</p>
+            <a href="index.html" class="back">← Retour à l'accueil</a>
+        </div>
+    </div>
+</header>
+
+<div class="page">
+
+    <!-- ── NOTE FPG ── -->
+    <div class="fpg-note">
+        <strong>📋 Plafonds FPG 2026</strong> — Le Fonds Paritaire de Gestion peut prendre en charge tout ou partie des coûts de formation.
+        <div class="fpg-grid">
+            <div class="fpg-cell">
+                <div class="fc-label">1 à 9 salariés</div>
+                <div class="fc-val">100 000 XPF / an</div>
+            </div>
+            <div class="fpg-cell">
+                <div class="fc-label">10 à 19 salariés</div>
+                <div class="fc-val">200 000 XPF / an</div>
+            </div>
+            <div class="fpg-cell">
+                <div class="fc-label">20 salariés et plus</div>
+                <div class="fc-val">Budget propre conseillé</div>
+            </div>
+        </div>
+        <div class="fpg-disclaimer">
+            <strong style="color:#5B3D8A;">📌 Procédure de demande FPG :</strong><br><br>
+            1. L'entreprise doit être à jour de ses cotisations sociales et s'inscrire sur <a href="https://www.ite.pf" target="_blank" style="color:#5B3D8A;font-style:normal;font-weight:700;">www.ite.pf</a> pour soumettre sa demande de prise en charge.<br><br>
+            2. La demande est du ressort de l'entreprise — nous pouvons vous accompagner dans sa constitution.<br><br>
+            3. <strong style="color:#5B3D8A;">⏱ Délai impératif :</strong> le FPG exige un minimum de <strong style="color:#5B3D8A;">15 jours</strong> entre la décision de prise en charge et le début de la formation, afin que l'organisme de formation puisse envoyer les convocations dans les délais réglementaires.<br><br>
+            👉 <strong style="color:#5B3D8A;">Recommandation : effectuez votre demande au moins 1 mois avant la date de début de formation.</strong>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════
+         ENTREPRISE
+    ════════════════════════════════ -->
+    <div class="section-head">
+        <h2>🏢 Formations Entreprise</h2>
+        <div class="line"></div>
+        <span class="pill">Éligibles FPG</span>
+    </div>
+
+    <!-- ESSENTIEL -->
+    <div class="pack-row">
+        <div class="pack-top">
+            <div class="pack-id">
+                <div class="p-label">Entreprise · 1 jour</div>
+                <div class="p-name">ESSENTIEL</div>
+                <div class="p-dur">7 heures</div>
+            </div>
+            <div class="pack-content">
+                <p class="pack-desc">Comprendre et utiliser l'IA au quotidien. Socle IA, productivité, rédaction professionnelle et premières automatisations simples. Formation adaptée à l'outil utilisé par votre entreprise.</p>
+                <div class="tools-row">
+                    <span class="tool-tag choice">Au choix :</span>
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Gemini</span>
+                    <span class="tool-tag">Copilot</span>
+                </div>
+                <div class="sectors-row">
+                    <span class="sector">Commerce</span>
+                    <span class="sector">Tourisme</span>
+                    <span class="sector">Services</span>
+                    <span class="sector">BTP</span>
+                </div>
+            </div>
+            <div class="pack-price-col">
+                <div class="price-main">95 000 XPF</div>
+                <span class="fpg-tag fpg-green">✅ FPG — 100% TPE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERFORMANCE -->
+    <div class="pack-row">
+        <div class="pack-top">
+            <div class="pack-id">
+                <div class="p-label">Entreprise · 2 jours</div>
+                <div class="p-name">PERFORMANCE</div>
+                <div class="p-dur">14 heures</div>
+            </div>
+            <div class="pack-content">
+                <p class="pack-desc">IA + Organisation. Productivité avancée, structuration de l'entreprise, base clients, suivi d'activité et gestion de projets. L'outil IA est adapté à votre environnement existant.</p>
+                <div class="tools-row">
+                    <span class="tool-tag choice">Au choix :</span>
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Gemini</span>
+                    <span class="tool-tag">Copilot</span>
+                    <span class="tool-tag">Notion</span>
+                </div>
+                <div class="sectors-row">
+                    <span class="sector">Commerce</span>
+                    <span class="sector">Tourisme</span>
+                    <span class="sector">Immobilier</span>
+                    <span class="sector">Services</span>
+                </div>
+            </div>
+            <div class="pack-price-col">
+                <div class="price-main">175 000 XPF</div>
+                <span class="fpg-tag fpg-warn">⚠️ FPG partiel</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTOMATISATION -->
+    <div class="pack-row">
+        <div class="pack-top">
+            <div class="pack-id">
+                <div class="p-label">Entreprise · 3 jours</div>
+                <div class="p-name">AUTOMATISATION</div>
+                <div class="p-dur">21 heures</div>
+            </div>
+            <div class="pack-content">
+                <p class="pack-desc">IA + Organisation + Automatisation. Workflows sur mesure, connexion d'outils, élimination des tâches répétitives.</p>
+                <div class="tools-row">
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Notion</span>
+                    <span class="tool-tag">N8N</span>
+                    <span class="tool-tag green">🟢 Exclusif Polynésie</span>
+                </div>
+                <div class="sectors-row">
+                    <span class="sector">Tous secteurs</span>
+                    <span class="sector">Logistique</span>
+                    <span class="sector">Finance</span>
+                </div>
+            </div>
+            <div class="pack-price-col">
+                <div class="price-main">290 000 XPF</div>
+                <span class="fpg-tag fpg-warn">⚠️ FPG partiel</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPERT -->
+    <div class="pack-row">
+        <div class="pack-top">
+            <div class="pack-id dark">
+                <div class="p-label">Entreprise · 4 jours</div>
+                <div class="p-name">EXPERT</div>
+                <div class="p-dur">28 heures</div>
+            </div>
+            <div class="pack-content">
+                <p class="pack-desc">Transformation digitale complète. Tous modules + diagnostic de l'entreprise + cas réel + mise en place concrète avec suivi post-formation.</p>
+                <div class="tools-row">
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Notion</span>
+                    <span class="tool-tag">N8N</span>
+                    <span class="tool-tag">+ Sur mesure</span>
+                </div>
+                <div class="sectors-row">
+                    <span class="sector">Tous secteurs</span>
+                </div>
+            </div>
+            <div class="pack-price-col">
+                <div class="price-main">390 000 XPF</div>
+                <span class="fpg-tag fpg-warn">⚠️ FPG partiel</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════
+         PARTICULIER
+    ════════════════════════════════ -->
+    <div class="section-head" style="margin-top:3rem;">
+        <h2>👤 Formations Particulier</h2>
+        <div class="line"></div>
+        <span class="pill pill-orange">Présentiel Papeete</span>
+    </div>
+
+    <div class="min-note">
+        👥 <strong>Groupe de 5 stagiaires minimum.</strong> Les tarifs sont indiqués <strong>par personne</strong>. En dessous de 5 participants, la session ne peut pas être organisée.
+    </div>
+
+    <!-- INITIATION -->
+    <div class="pack-row">
+        <div class="pack-top">
+            <div class="pack-id orange">
+                <div class="p-label">Particulier · 1 jour</div>
+                <div class="p-name">INITIATION</div>
+                <div class="p-dur">7 heures</div>
+            </div>
+            <div class="pack-content">
+                <p class="pack-desc">Première découverte de l'IA. Prompts simples, usages du quotidien personnel et professionnel. Choisissez l'outil qui vous correspond.</p>
+                <div class="tools-row">
+                    <span class="tool-tag choice">Au choix :</span>
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Gemini</span>
+                    <span class="tool-tag">Copilot</span>
+                </div>
+            </div>
+            <div class="pack-price-col">
+                <div class="price-main">18 000 XPF</div>
+                <div class="price-sub">par personne</div>
+                <span class="fpg-tag fpg-no">Non FPG</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- STANDARD -->
+    <div class="pack-row">
+        <div class="pack-top">
+            <div class="pack-id orange">
+                <div class="p-label">Particulier · 2 jours</div>
+                <div class="p-name">STANDARD</div>
+                <div class="p-dur">14 heures</div>
+            </div>
+            <div class="pack-content">
+                <p class="pack-desc">Utiliser l'IA efficacement. Productivité personnelle, rédaction, organisation, gain de temps au quotidien. Outil au choix selon votre usage.</p>
+                <div class="tools-row">
+                    <span class="tool-tag choice">Au choix :</span>
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Gemini</span>
+                    <span class="tool-tag">Copilot</span>
+                </div>
+            </div>
+            <div class="pack-price-col">
+                <div class="price-main">36 000 XPF</div>
+                <div class="price-sub">par personne</div>
+                <span class="fpg-tag fpg-no">Non FPG</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARCOURS -->
+    <div class="pack-row">
+        <div class="pack-top">
+            <div class="pack-id orange">
+                <div class="p-label">Particulier · 3 jours</div>
+                <div class="p-name">PARCOURS</div>
+                <div class="p-dur">21 heures</div>
+            </div>
+            <div class="pack-content">
+                <p class="pack-desc">Parcours complet IA. IA générative maîtrisée + Notion pour s'organiser + automatisation simple. 3 journées progressives. L'outil IA est choisi selon votre contexte.</p>
+                <div class="tools-row">
+                    <span class="tool-tag choice">Au choix :</span>
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Gemini</span>
+                    <span class="tool-tag">Copilot</span>
+                    <span class="tool-tag">Notion</span>
+                    <span class="tool-tag">Automatisation</span>
+                </div>
+            </div>
+            <div class="pack-price-col">
+                <div class="price-main">54 000 XPF</div>
+                <div class="price-sub">par personne</div>
+                <span class="fpg-tag fpg-no">Non FPG</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════
+         TABLEAU RÉCAP
+    ════════════════════════════════ -->
+    <div class="recap-title">📋 Récapitulatif</div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pack</th>
+                    <th>Outils</th>
+                    <th>Durée</th>
+                    <th>Prix</th>
+                    <th>FPG</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr-sep"><td colspan="6">Entreprise</td></tr>
+                <tr>
+                    <td>ESSENTIEL</td>
+                    <td>ChatGPT / Gemini / Copilot</td>
+                    <td>1 jour — 7h</td>
+                    <td>95 000 XPF</td>
+                    <td><span class="tg tg-g">✅ 100% TPE</span></td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>PERFORMANCE</td>
+                    <td>ChatGPT / Gemini / Copilot + Notion</td>
+                    <td>2 jours — 14h</td>
+                    <td>175 000 XPF</td>
+                    <td><span class="tg tg-w">⚠️ Partiel</span></td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>AUTOMATISATION</td>
+                    <td>ChatGPT + Notion + N8N</td>
+                    <td>3 jours — 21h</td>
+                    <td>290 000 XPF</td>
+                    <td><span class="tg tg-w">⚠️ Partiel</span></td>
+                    <td><span class="tg tg-diff">Exclusif PF</span></td>
+                </tr>
+                <tr>
+                    <td>EXPERT</td>
+                    <td>Tous outils + sur mesure</td>
+                    <td>4 jours — 28h</td>
+                    <td>390 000 XPF</td>
+                    <td><span class="tg tg-w">⚠️ Partiel</span></td>
+                    <td>Intra uniquement</td>
+                </tr>
+                <tr class="tr-sep"><td colspan="6">Particulier — 5 stagiaires min. — prix par personne</td></tr>
+                <tr>
+                    <td>INITIATION</td>
+                    <td>ChatGPT / Gemini / Copilot</td>
+                    <td>1 jour — 7h</td>
+                    <td>18 000 XPF/pers.</td>
+                    <td><span class="tg tg-n">Non</span></td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>STANDARD</td>
+                    <td>ChatGPT / Gemini / Copilot</td>
+                    <td>2 jours — 14h</td>
+                    <td>36 000 XPF/pers.</td>
+                    <td><span class="tg tg-n">Non</span></td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>PARCOURS</td>
+                    <td>ChatGPT / Gemini / Copilot + Notion</td>
+                    <td>3 jours — 21h</td>
+                    <td>54 000 XPF/pers.</td>
+                    <td><span class="tg tg-n">Non</span></td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bouton bas de page -->
+    <div style="text-align:center; margin-top:3rem;">
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-flex;align-items:center;gap:.5rem;background:#7C53B0;color:#fff;border:none;border-radius:10px;padding:.75rem 1.75rem;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .25s;box-shadow:0 4px 14px rgba(124,83,176,.25);" onmouseover="this.style.background='#5B3D8A'" onmouseout="this.style.background='#7C53B0'">
+            ↑ Retour en haut de page
+        </button>
+    </div>
+
+</div><!-- /page -->
+
+<div class="fab">
+    <button class="fab-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut">↑</button>
+    <a href="index.html" class="fab-btn" title="Accueil">⌂</a>
+</div>
+
+</body>
+</html>
